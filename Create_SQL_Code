@@ -1,0 +1,65 @@
+CREATE TABLE EMPLOYEE (
+    SSN int(9) NOT NULL, 
+    DOB date,
+    FNAME varchar(256), 
+    MINIT varchar(1),
+    LNAME varchar(256), 
+    ADDRESS varchar(256),
+    CHECK (length(SSN)=9),
+    PRIMARY KEY (SSN)
+    );
+CREATE TABLE HourlyEmp (
+    SSN int(9) NOT NULL, 
+    hourPay double NOT NULL,
+    FOREIGN KEY (SSN) REFERENCES Employee(SSN)
+    );
+    
+CREATE TABLE SalaryEmp (
+    SSN int(9) NOT NULL, 
+    monthSal double NOT NULL,
+    FOREIGN KEY (SSN) REFERENCES Employee(SSN) 
+    );
+    
+CREATE TABLE Dependents (
+    SSN int(9) NOT NULL, 
+    name varchar(18), 
+    relationship varchar(18),
+    FOREIGN KEY (SSN) REFERENCES Employee(SSN) 
+    );
+    
+CREATE TABLE Department (
+    deptNum int(6), 
+    deptName varchar(15),
+    location varchar(100),
+    numEmp int(6),
+    PRIMARY KEY (deptNum, location)
+    );
+    
+CREATE TABLE Project (
+    projName varchar(15), 
+    projNum  varchar(15), 
+    projDesc varchar(100),
+    PRIMARY KEY (projName, projNum)
+    );
+    
+CREATE TABLE Manager (
+    SSN int(9) NOT NULL, 
+    officeNum int(6),
+    deptNum int(6), 
+    startDate date,
+    FOREIGN KEY (SSN) REFERENCES Employee(SSN) 
+    );    
+    
+CREATE TABLE WorksIn (
+    Employee varchar(9),
+    projNum  varchar(15),
+    projName varchar(15),
+    deptNum int(6), 
+    PRIMARY KEY (Employee)
+    );
+    
+CREATE TABLE Location (
+  	deptNum int(6), 
+    locName varchar(15), 
+    FOREIGN KEY (deptNum) REFERENCES Department(deptNum)
+);
