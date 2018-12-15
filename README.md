@@ -1,4 +1,4 @@
-# MySQL_DBMS_WAMP_DatabaseProject
+# DatabaseProject
 
 **Amir Sadiev**  
 **Univeristy of North Carolina - Greensboro**  
