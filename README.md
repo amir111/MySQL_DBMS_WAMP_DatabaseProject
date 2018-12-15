@@ -1,4 +1,4 @@
-# DatabaseProject
+# Database Project
 
 **Amir Sadiev**  
 **Univeristy of North Carolina - Greensboro**  
