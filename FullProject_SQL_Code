@@ -1,0 +1,179 @@
+CREATE TABLE EMPLOYEE (
+    SSN int(9) NOT NULL, 
+    DOB date,
+    FNAME varchar(256), 
+    MINIT varchar(1),
+    LNAME varchar(256), 
+    ADDRESS varchar(256),
+    CHECK (length(SSN)=9),
+    PRIMARY KEY (SSN)
+    );
+CREATE TABLE HourlyEmp (
+    SSN int(9) NOT NULL, 
+    hourPay double NOT NULL,
+    FOREIGN KEY (SSN) REFERENCES Employee(SSN)
+    );
+    
+CREATE TABLE SalaryEmp (
+    SSN int(9) NOT NULL, 
+    monthSal double NOT NULL,
+    FOREIGN KEY (SSN) REFERENCES Employee(SSN) 
+    );
+    
+CREATE TABLE Dependents (
+    SSN int(9) NOT NULL, 
+    name varchar(18), 
+    relationship varchar(18),
+    FOREIGN KEY (SSN) REFERENCES Employee(SSN) 
+    );
+    
+CREATE TABLE Department (
+    deptNum int(6), 
+    deptName varchar(15),
+    location varchar(100),
+    numEmp int(6),
+    PRIMARY KEY (deptNum, location)
+    );
+    
+CREATE TABLE Project (
+    projName varchar(15), 
+    projNum  varchar(15), 
+    projDesc varchar(100),
+    PRIMARY KEY (projName, projNum)
+    );
+    
+CREATE TABLE Manager (
+    SSN int(9) NOT NULL, 
+    officeNum int(6),
+    deptNum int(6), 
+    startDate date,
+    FOREIGN KEY (SSN) REFERENCES Employee(SSN) 
+    );    
+    
+CREATE TABLE WorksIn (
+    Employee varchar(9),
+    projNum  varchar(15),
+    projName varchar(15),
+    deptNum int(6), 
+    PRIMARY KEY (Employee)
+    );
+    
+CREATE TABLE Location (
+  	deptNum int(6), 
+    locName varchar(15), 
+    FOREIGN KEY (deptNum) REFERENCES Department(deptNum)
+);
+
+INSERT INTO department (deptNum, deptName, numEmp, location)
+VALUES (111, 222, 1, 'White Bldg');
+INSERT INTO department (deptNum, deptName, numEmp, location)
+VALUES (333, 444, 1, 'Franklin Bldg');
+INSERT INTO department (deptNum, deptName, numEmp, location)
+VALUES (555, 666, 1, 'Hanes Bldg');
+INSERT INTO department (deptNum, deptName, numEmp, location)
+VALUES (777, 888, 1, 'Infinity Tower');
+
+INSERT INTO EMPLOYEE (SSN, DOB, FNAME, MINIT, LNAME, ADDRESS)
+VALUES (103456789, '2001-10-10', 'John', 'D', 'Beavers', '1010 Brook Lane');
+INSERT INTO EMPLOYEE (SSN, DOB, FNAME, MINIT, LNAME, ADDRESS)
+VALUES (113456789, '2002-10-10', 'Tim', 'E', 'Bekmambetov', '2020 Liberty Str');
+INSERT INTO EMPLOYEE (SSN, DOB, FNAME, MINIT, LNAME, ADDRESS)
+VALUES (123456789, '2003-10-10', 'Sara', 'K', 'Smith', '1334 Free Pkwy');
+INSERT INTO EMPLOYEE (SSN, DOB, FNAME, MINIT, LNAME, ADDRESS)
+VALUES (133456789, '1991-10-10', 'Paula', 'J', 'Keerns', '1224 Antler Lane');
+INSERT INTO EMPLOYEE (SSN, DOB, FNAME, MINIT, LNAME, ADDRESS)
+VALUES (987654321, '1995-02-10', 'Kate', 'K', 'Walker', '42 Bispay Lane');
+INSERT INTO EMPLOYEE (SSN, DOB, FNAME, MINIT, LNAME, ADDRESS)
+VALUES (987654320, '1996-02-10', 'Jack', 'M', 'Long', '42 Bispay Lane');
+INSERT INTO EMPLOYEE (SSN, DOB, FNAME, MINIT, LNAME, ADDRESS)
+VALUES (987654322, '1997-02-10', 'Claire', 'K', 'Black', '42 Bispay Lane');
+INSERT INTO EMPLOYEE (SSN, DOB, FNAME, MINIT, LNAME, ADDRESS)
+VALUES (987654323, '1999-02-10', 'Anton', 'K', 'Witherspoon', '42 Bispay Lane');
+INSERT INTO EMPLOYEE (SSN, DOB, FNAME, MINIT, LNAME, ADDRESS)
+VALUES (987654324, '1998-02-10', 'Keith', 'J', 'Goldberg', '42 Bispay Lane');
+
+
+INSERT INTO salaryemp (SSN, monthSal)
+VALUES (103456789, 1000);
+INSERT INTO salaryemp (SSN, monthSal)
+VALUES (113456789, 2000);
+INSERT INTO salaryemp (SSN, monthSal)
+VALUES (123456789, 3000);
+INSERT INTO salaryemp (SSN, monthSal)
+VALUES (133456789, 4000);
+
+INSERT INTO dependents (SSN, name, relationship) 
+VALUES (103456789, 'Anna', 'daughter');
+INSERT INTO dependents (SSN, name, relationship) 
+VALUES (113456789, 'Frank', 'son');
+INSERT INTO dependents (SSN, name, relationship) 
+VALUES (123456789, 'Qi', 'son');
+INSERT INTO dependents (SSN, name, relationship) 
+VALUES (133456789, 'Rachel', 'daughter');
+
+INSERT INTO hourlyemp (SSN, hourPay)
+VALUES (987654321, 10);
+INSERT INTO hourlyemp (SSN, hourPay)
+VALUES (987654320, 20);
+INSERT INTO hourlyemp (SSN, hourPay)
+VALUES (987654322, 30);
+INSERT INTO hourlyemp (SSN, hourPay)
+VALUES (987654323, 40);
+
+INSERT INTO location (deptNum, locName)
+VALUES (111, 'White Bldg');
+INSERT INTO location (deptNum, locName)
+VALUES (333, 'Franklin Bldg');
+INSERT INTO location (deptNum, locName)
+VALUES (555, 'Hanes Bldg');
+INSERT INTO location (deptNum, locName)
+VALUES (777, 'Infinity Tower');
+
+INSERT INTO manager (SSN, officeNum, deptNum, startDate)
+VALUES (123456789, 1, 111, '2010-01-01');
+INSERT INTO manager (SSN, officeNum, deptNum, startDate)
+VALUES (123456789, 2, 333, '2009-01-01');
+INSERT INTO manager (SSN, officeNum, deptNum, startDate)
+VALUES (123456789, 3, 555, '2008-01-01');
+INSERT INTO manager (SSN, officeNum, deptNum, startDate)
+VALUES (123456789, 4, 777, '2007-01-01');
+
+INSERT INTO project (projName, projNum, projDesc)
+VALUES ('Falcon', 1, 'Bird flying project');
+INSERT INTO project (projName, projNum, projDesc)
+VALUES ('Some Project', 2, 'Some Description');
+INSERT INTO project (projName, projNum, projDesc)
+VALUES ('Talk', 3, 'Communication Project');
+INSERT INTO project (projName, projNum, projDesc)
+VALUES ('Angel', 4, 'Charity Project');
+
+UPDATE salaryemp
+SET monthSal = 450000
+WHERE SSN = 987654321;
+UPDATE project
+SET projName = 'Sweet', projDesc = 'Donut Business'
+WHERE projNum = 2;
+
+SELECT dependents.name, EMPLOYEE.SSN, EMPLOYEE.FNAME
+FROM dependents
+INNER JOIN EMPLOYEE ON dependents.SSN=EMPLOYEE.SSN;
+
+SELECT projName, projNum, projDesc
+FROM project
+GROUP BY projName;
+
+SELECT SSN FROM hourlyEmp
+UNION
+SELECT SSN FROM salaryEmp;
+
+SELECT a.SSN, a.FNAME, b.monthSal
+FROM employee a, salaryEmp b
+WHERE a.SSN = b.SSN AND b.monthSal >
+(SELECT monthSal
+FROM salaryEmp
+WHERE SSN =  '103456789');
+
+SELECT monthSal, SSN
+FROM salaryemp
+GROUP BY monthSal
+HAVING monthSal > 2000;
